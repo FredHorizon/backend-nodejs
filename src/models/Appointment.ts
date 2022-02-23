@@ -1,18 +1,16 @@
-import { v4 as uuidv4 } from 'uuid';
-uuidv4();
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'; // Vai salvar o model no banco de dados
 
+// Agora será armazenado dentro da tabela de appointments
+@Entity('appointments')
 class Appointment {
+  @PrimaryGeneratedColumn('uuid') // Coluna de chave primária gerada automaticamente
   id: string;
 
+  @Column() // Coluna padrão
   provider: string;
 
+  @Column('timestamp with time zone') // Coluna com data e hora
   date: Date;
-
-  constructor({ provider, date }: Omit<Appointment, 'id'>) {
-    this.id = uuidv4();
-    this.provider = provider;
-    this.date = date;
-  }
 }
 
 export default Appointment;
