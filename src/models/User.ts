@@ -7,16 +7,19 @@ import {
 } from 'typeorm'; // Vai salvar o model no banco de dados
 
 // Agora será armazenado dentro da tabela de appointments
-@Entity('appointments')
-class Appointment {
+@Entity('users ')
+class User {
   @PrimaryGeneratedColumn('uuid') // Coluna de chave primária gerada automaticamente
   id: string;
 
   @Column() // Coluna padrão
-  provider: string;
+  name: string;
 
-  @Column('timestamp with time zone') // Coluna com data e hora
-  date: Date;
+  @Column() // Coluna padrão
+  email: string;
+
+  @Column() // Coluna padrão
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -25,4 +28,4 @@ class Appointment {
   updated_at: Date;
 }
 
-export default Appointment;
+export default User;
