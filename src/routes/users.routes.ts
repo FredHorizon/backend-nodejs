@@ -16,6 +16,8 @@ usersRouter.post('/', async (req, res) => {
       password,
     });
 
+    delete user.password; // remove/oculta o campo de senha da listagem, de modo que fica disponível somente no banco
+
     return res.json(user);
   } catch (err) {
     return res.status(400).json({ error: err.message });
