@@ -5,6 +5,9 @@ import path from 'path';
 import fs from 'fs';
 
 import uploadConfig from '../config/upload';
+
+import AppError from '../errors/AppError';
+
 import User from '../models/User';
 
 interface Request {
@@ -22,7 +25,7 @@ class UpdateUserAvatarService {
     // é necessário verificar nesse próprio service se as variáveis que estão sendo recebidas aqui
     // são variáveis válidas, ou seja, não é seguro se basear em validações externas.
     if (!user) {
-      throw new Error('Only authenticated users can avatar.');
+      throw new AppError('Only authenticated users can avatar.', 401);
     }
 
     if (user.avatar) {

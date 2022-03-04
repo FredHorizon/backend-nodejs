@@ -1,8 +1,10 @@
 // Middleware que verifica se o usuário está realmente autenticado na aplicação
 import { Request, Response, NextFunction } from 'express';
-import { decode, verify } from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken';
 
 import authConfig from '../config/auth';
+
+import AppError from '../errors/AppError';
 
 interface TokenPayload {
   iat: number;
@@ -20,7 +22,7 @@ export default function ensureAuthenticated(
 
   // Se não existir
   if (!authHeader) {
-    throw new Error('JWT toekn is missing.');
+    throw new AppError('JWT toekn is missing.', 401);
   }
 
   // Se existir, tem que separar nesse formato: <Bearer asdasd45454asedq> em duas partes
@@ -38,6 +40,6 @@ export default function ensureAuthenticated(
 
     return next();
   } catch (err) {
-    throw new Error('Invalid JWT token.');
+    throw new AppError('Invalid JWT token.', 401);
   }
 }
